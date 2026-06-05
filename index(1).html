@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f7f1e9" />
+  <title>การ์ดกำลังใจจากเค้า</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Mali:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap");
+
+    :root {
+      --bg: #f7f1e9;
+      --bg2: #f3ece3;
+      --paper: rgba(255, 252, 247, 0.88);
+      --ink: #2f2a2d;
+      --muted: #7c726d;
+      --line: rgba(49, 42, 45, 0.10);
+      --shadow: rgba(51, 41, 44, 0.10);
+      --accent: #bf8d53;
+      --button: #2c292c;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Noto Sans Thai", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 14% 12%, rgba(255,255,255,.7) 0 7%, transparent 17%),
+        radial-gradient(circle at 88% 18%, rgba(255,255,255,.55) 0 6%, transparent 16%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+      min-height: 100vh;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .18;
+      background-image: radial-gradient(circle, rgba(126,111,106,.42) 1px, transparent 1px);
+      background-size: 23px 23px;
+      mask-image: linear-gradient(to bottom, black, transparent 80%);
+    }
+    .shell { width: min(1120px, calc(100% - 28px)); margin: 0 auto; }
+    .hero { min-height: 95vh; display: grid; place-items: center; padding: 36px 0 28px; }
+    .hero-card {
+      width: min(780px, 100%);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      box-shadow: 0 22px 56px var(--shadow);
+      padding: clamp(28px, 6vw, 58px) clamp(20px, 6vw, 58px);
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+    .tiny { margin: 0 0 8px; color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 3px; }
+    h1, h2, h3 { margin: 0; font-family: "Mali", "Noto Sans Thai", sans-serif; line-height: 1.22; }
+    h1 { font-size: clamp(34px, 7vw, 62px); margin-top: 8px; }
+    h2 { font-size: clamp(28px, 5vw, 44px); }
+    .lead { max-width: 620px; margin: 16px auto 0; color: var(--muted); font-size: clamp(16px, 2.3vw, 18px); line-height: 1.9; }
+    .lead .en { display: block; margin-top: 6px; font-size: 15px; opacity: .9; }
+    .hero-art { width: min(255px, 68vw); margin: 4px auto 14px; filter: drop-shadow(0 14px 14px rgba(41,34,37,.10)); }
+    .cta { display: inline-block; margin-top: 24px; padding: 14px 24px; border-radius: 999px; text-decoration: none; color: white; background: var(--button); font-weight: 700; transition: transform .18s ease; }
+    .cta:hover { transform: translateY(-2px); }
+    .cards { padding: 38px 0 90px; scroll-margin-top: 24px; }
+    .section-head { max-width: 760px; margin: 0 auto 24px; text-align: center; }
+    .section-head p { margin: 10px 0 0; color: var(--muted); line-height: 1.8; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: stretch; }
+    .card { display: block; width: 100%; min-height: 430px; border: 0; padding: 0; background: transparent; cursor: pointer; perspective: 1200px; font: inherit; color: inherit; text-align: inherit; transition: transform .22s ease, opacity .22s ease; }
+    .card:hover { transform: translateY(-6px); }
+    .card.dimmed { opacity: .24; pointer-events: none; transform: scale(.985); }
+    .card-inner { display: block; position: relative; width: 100%; height: 430px; transform-style: preserve-3d; transition: transform .78s cubic-bezier(.2,.75,.2,1); }
+    .card.flipped .card-inner { transform: rotateY(180deg); }
+    .face { position: absolute; inset: 0; display: flex; flex-direction: column; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; border: 1px solid var(--line); border-radius: 26px; overflow: hidden; background: rgba(255,252,247,.94); box-shadow: 0 16px 38px var(--shadow); }
+    .front { justify-content: center; align-items: center; padding: 18px; }
+    .back { transform: rotateY(180deg); justify-content: center; padding: 24px; text-align: center; background: radial-gradient(circle at top right, rgba(255,255,255,.8), transparent 38%), linear-gradient(180deg, #fffaf4 0%, #f6ebe0 100%); }
+    .badge { align-self: flex-start; margin-bottom: 8px; padding: 7px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: 1px; color: #5d5451; border: 1px solid rgba(0,0,0,.05); background: rgba(255,255,255,.76); }
+    .cat-stage { position: relative; width: 100%; height: 255px; border-radius: 22px; display: grid; place-items: center; overflow: hidden; background: radial-gradient(circle at 50% 42%, var(--halo) 0, rgba(255,255,255,0) 70%); }
+    .cat-stage::after { content: ""; position: absolute; bottom: 22px; width: 68%; height: 22px; border-radius: 50%; background: rgba(44, 40, 44, .08); filter: blur(6px); }
+    .cat-svg { position: relative; z-index: 1; width: min(220px, 82%); height: auto; display: block; filter: drop-shadow(0 10px 8px rgba(41,34,37,.07)); }
+    .front h3 { margin-top: 14px; font-size: 22px; text-align: center; }
+    .front p { margin: 6px 0 0; color: var(--muted); font-size: 14px; text-align: center; }
+    .label { margin: 0 0 12px; color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 2px; }
+    .message { margin: 0; font-family: "Mali", "Noto Sans Thai", sans-serif; font-size: 21px; font-weight: 600; line-height: 1.8; }
+    .sign { margin: 15px 0 0; color: var(--muted); font-size: 14px; }
+    .after-choice { display: none; max-width: 720px; margin: 28px auto 0; padding: 20px; text-align: center; background: rgba(255,252,247,.84); border: 1px solid var(--line); border-radius: 22px; box-shadow: 0 10px 24px rgba(51,41,44,.08); }
+    .after-choice.show { display: block; animation: fadeUp .34s ease both; }
+    .after-choice p { margin: 0 0 12px; color: var(--muted); line-height: 1.8; }
+    .share { border: 0; border-radius: 999px; background: var(--button); color: white; padding: 12px 18px; font: inherit; font-weight: 700; cursor: pointer; }
+    .copy-status { min-height: 24px; margin-top: 10px !important; color: var(--accent) !important; font-size: 14px; }
+    footer { padding-bottom: 28px; text-align: center; color: var(--muted); font-size: 13px; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 580px) { .hero { min-height: 86vh; } .grid { grid-template-columns: 1fr; } .card { min-height: 390px; } .card-inner { height: 390px; } .message { font-size: 19px; } .hero-card { border-radius: 28px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero shell">
+      <div class="hero-card">
+        <p class="tiny">A LITTLE CAT CARD FOR YOU</p>
+        <div class="hero-art" id="heroCat"></div>
+        <h1>เลือกการ์ดเพื่อรับกำลังใจจากเค้า</h1>
+        <p class="lead">
+          เลือกการ์ดหนึ่งใบ แล้วพลิกดูข้อความด้านหลังได้เลย
+          <span class="en">Choose a card to receive a little encouragement from me.</span>
+        </p>
+        <a class="cta" href="#cards">เริ่มเลือกการ์ด</a>
+      </div>
+    </section>
+    <section class="cards shell" id="cards">
+      <div class="section-head">
+        <p class="tiny">CHOOSE ONLY ONE</p>
+        <h2>วันนี้อยากเปิดการ์ดใบไหน</h2>
+        <p>เลือกการ์ดใบไหนก็ได้ ถ้าอยากเปลี่ยนใจให้แตะใบใหม่ได้เลย</p>
+      </div>
+      <div class="grid" id="grid"></div>
+      <div class="after-choice" id="afterChoice">
+        <p id="afterText"></p>
+        <button class="share" id="shareBtn" type="button">คัดลอกข้อความบอกว่าเลือกใบไหน</button>
+        <p class="copy-status" id="copyStatus"></p>
+      </div>
+    </section>
+  </main>
+  <footer>ทำไว้ให้คนพิเศษเปิดจากลิงก์นี้ได้เลย</footer>
+  <script>
+    // เวอร์ชันนี้ไม่จำการเลือก ผู้ใช้กดเลือกใหม่ได้เรื่อย ๆ
+    const cards = [
+      { name: "การ์ดใบที่ 1", short: "ยิ้มไว้นะ", halo: "#ece4dc", accent: "#c9a25a", mood: "star", message: "ไม่ว่าจะเจออะไร ยิ้มเข้าไว้นะ เค้าเชื่อในตัวเธอ ♥" },
+      { name: "การ์ดใบที่ 2", short: "เค้าพร้อมฟัง", halo: "#ece6df", accent: "#c6b29a", mood: "cloud", message: "อย่าคิดมากคนเดียวจนลืมว่า เธอมีเค้าที่พร้อมฟังทุกเรื่องนะ ♥" },
+      { name: "การ์ดใบที่ 3", short: "ยังอยู่ตรงนี้", halo: "#eee5dd", accent: "#d9a4a1", mood: "heart", message: "ไม่ว่าเธอกำลังเจอกับอะไร เค้ายังอยู่ตรงนี้นะ ♥" },
+      { name: "การ์ดใบที่ 4", short: "รักเธอนะ", halo: "#ece4df", accent: "#e2bc61", mood: "moon", message: "รักเธอนะ ♥" },
+      { name: "การ์ดใบที่ 5", short: "ภูมิใจในตัวเธอ", halo: "#ebe5de", accent: "#b89e7f", mood: "flower", message: "เค้าภูมิใจในตัวเธอเสมอนะ ♥" },
+      { name: "การ์ดใบที่ 6", short: "ขอให้มีแต่เรื่องดีๆ", halo: "#eee7df", accent: "#9fb390", mood: "leaf", message: "ขอให้มีแต่เรื่องดีๆ เกิดกับเธอนะ ♥" }
+    ];
+    const grid = document.getElementById("grid");
+    const afterChoice = document.getElementById("afterChoice");
+    const afterText = document.getElementById("afterText");
+    const shareBtn = document.getElementById("shareBtn");
+    const copyStatus = document.getElementById("copyStatus");
+    const heroCat = document.getElementById("heroCat");
+
+    function accessorySvg(type, accent) {
+      const stroke = 'rgba(60,49,47,.12)';
+      if (type === "star") return `<path d="m132 28 9 16 18 3-13 12 3 18-17-9-17 9 3-18-13-12 18-3z" fill="${accent}" stroke="${stroke}" stroke-width="2"/><circle cx="94" cy="34" r="4" fill="${accent}"/><circle cx="172" cy="20" r="3.5" fill="${accent}"/><circle cx="188" cy="58" r="4" fill="${accent}"/>`;
+      if (type === "cloud") return `<path d="M94 63c1-14 12-24 27-24 12 0 22 7 26 18 10 0 18 7 18 16 0 10-8 17-20 17H95c-13 0-21-7-21-17 0-7 7-10 20-10z" fill="${accent}" opacity=".92" stroke="${stroke}" stroke-width="2"/>`;
+      if (type === "heart") return `<path d="M132 78s-30-17-30-35c0-10 8-17 17-17 6 0 11 3 13 9 3-6 8-9 14-9 10 0 18 7 18 17 0 18-32 35-32 35z" fill="${accent}" stroke="${stroke}" stroke-width="2"/>`;
+      if (type === "moon") return `<path d="M152 26c-17 6-22 26-11 39 7 9 20 12 32 7-7 10-23 15-37 7-15-8-21-28-12-43 6-10 17-14 28-10z" fill="${accent}" stroke="${stroke}" stroke-width="2"/>`;
+      if (type === "flower") return `<g><circle cx="132" cy="58" r="9" fill="#f5d16f"/><circle cx="114" cy="56" r="11" fill="${accent}" stroke="${stroke}" stroke-width="2"/><circle cx="150" cy="56" r="11" fill="${accent}" stroke="${stroke}" stroke-width="2"/><circle cx="132" cy="39" r="11" fill="${accent}" stroke="${stroke}" stroke-width="2"/><circle cx="132" cy="74" r="11" fill="${accent}" stroke="${stroke}" stroke-width="2"/></g>`;
+      return `<path d="M132 80c-2-29 14-48 38-57-2 27-14 49-38 57zm0 0c-4-17-15-30-33-39 2 20 13 33 33 39z" fill="${accent}" stroke="${stroke}" stroke-width="2"/>`;
+    }
+
+    function catSVG(accent="#c9a25a", mood="star", hero=false) {
+      const fluff = hero ? "1" : ".96";
+      return `<svg class="cat-svg" viewBox="0 0 260 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="แมวการ์ตูนโทนดำขนฟู"><g transform="translate(0 4) scale(${fluff})">${accessorySvg(mood, accent)}<path d="M84 92 63 51l39 21M178 92l21-41-39 21" fill="#2f323d"/><path d="M89 86 72 61l24 12M173 86l17-25-24 12" fill="#73585a"/><path d="M130 204c-40 0-74-26-74-74 0-49 33-75 74-75s74 26 74 75c0 48-34 74-74 74z" fill="#303340"/><path d="M118 202c-26 0-56-18-62-50-4-26 7-48 21-62-9 14-13 31-10 48 5 30 31 53 59 59 17 3 34 1 48-6-13 8-33 11-56 11z" fill="#3b3f4c" opacity=".75"/><path d="M77 153c-6 17-6 33 0 46 10 20 31 31 53 31 25 0 52-12 63-33 7-14 7-29 0-44-8 20-35 33-63 33-24 0-44-8-53-33z" fill="#252834"/><path d="M105 171c-18 2-35 8-49 18 17 19 45 31 74 31 29 0 57-12 74-31-15-11-33-17-53-18-11 7-29 10-46 0z" fill="#2a2d39"/><ellipse cx="104" cy="111" rx="17" ry="19" fill="#f8f5ef"/><ellipse cx="156" cy="111" rx="17" ry="19" fill="#f8f5ef"/><circle cx="108" cy="114" r="8" fill="#17171b"/><circle cx="152" cy="114" r="8" fill="#17171b"/><path d="M121 134q9 8 18 0" fill="none" stroke="#16171a" stroke-width="4" stroke-linecap="round"/><path d="M95 134H55M97 144l-41 10M165 134h40M163 144l41 10" fill="none" stroke="#71737c" stroke-width="3" stroke-linecap="round" opacity=".55"/><path d="M192 168q42-4 35-42" fill="none" stroke="#292c37" stroke-width="18" stroke-linecap="round"/><path d="M104 170c10 5 42 5 52 0" fill="none" stroke="#424653" stroke-width="5" opacity=".4" stroke-linecap="round"/><path d="M126 147h8v11c0 4-3 7-8 7s-8-3-8-7v-11h8z" fill="#d1a34d"/><circle cx="130" cy="146" r="7" fill="#dcb35c"/><path d="M124 143c0-7 0-10 6-12" fill="none" stroke="#dcb35c" stroke-width="3" stroke-linecap="round"/><text x="126" y="160" text-anchor="middle" font-size="18" font-family="Georgia, serif" fill="#6f5421" font-weight="700">P</text><path d="M77 94c6-10 16-18 29-23M183 94c-6-10-16-18-29-23" fill="none" stroke="#434754" stroke-width="6" opacity=".25" stroke-linecap="round"/></g></svg>`;
+    }
+
+    function renderCards() {
+      heroCat.innerHTML = catSVG("#c9a25a", "star", true);
+      grid.innerHTML = cards.map((card, index) => `
+        <button class="card" type="button" data-index="${index}" style="--halo:${card.halo};">
+          <div class="card-inner">
+            <div class="face front">
+              <div class="badge">${card.name}</div>
+              <div class="cat-stage">${catSVG(card.accent, card.mood, false)}</div>
+              <h3>${card.short}</h3>
+              <p>แตะเพื่อเปิดอ่านข้อความ</p>
+            </div>
+            <div class="face back">
+              <div>
+                <p class="label">A LITTLE NOTE FOR YOU</p>
+                <p class="message">${card.message}</p>
+                <p class="sign">จากเค้า ♥</p>
+              </div>
+            </div>
+          </div>
+        </button>`).join("");
+      document.querySelectorAll(".card").forEach((el) => { el.addEventListener("click", () => chooseCard(Number(el.dataset.index))); });
+    }
+
+    function chooseCard(index) {
+      applyChoice(index);
+    }
+
+    function applyChoice(index) {
+      const all = document.querySelectorAll(".card");
+      all.forEach((el, i) => { if (i === index) { el.classList.add("flipped"); } else { el.classList.add("dimmed"); } });
+      const picked = cards[index];
+      afterText.textContent = `ตอนนี้เลือก “${picked.name}” แล้ว ถ้าอยากบอกเค้าว่าเลือกใบไหน กดปุ่มด้านล่างได้เลย`;
+      afterChoice.classList.add("show");
+      shareBtn.onclick = () => shareChoice(picked.name);
+    }
+
+    async function shareChoice(cardName) {
+      const text = `เราเลือก ${cardName} แล้วนะ ♥`;
+      copyStatus.textContent = "";
+      if (navigator.share) {
+        try { await navigator.share({ title: "ผลการเลือกการ์ด", text }); copyStatus.textContent = "ส่งให้แล้ว"; return; }
+        catch (error) { if (error.name === "AbortError") return; }
+      }
+      try { await navigator.clipboard.writeText(text); copyStatus.textContent = "คัดลอกข้อความแล้ว เอาไปวางในแชตได้เลย"; }
+      catch (error) { copyStatus.textContent = `คัดลอกข้อความนี้ไปส่งได้เลย: ${text}`; }
+    }
+
+    function restoreChoice() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      const index = Number(stored);
+      if (stored !== null && Number.isInteger(index) && cards[index]) applyChoice(index);
+    }
+
+    const url = new URL(window.location.href);
+    if (url.searchParams.get("reset") === "1") {
+      localStorage.removeItem(STORAGE_KEY);
+      url.searchParams.delete("reset");
+      history.replaceState({}, "", url.pathname + url.hash);
+    }
+    renderCards();
+
+  </script>
+</body>
+</html>
